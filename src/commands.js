@@ -187,4 +187,41 @@ const updateTasks = async (taskId) => {
     console.log(chalk.grey("Created At:",createdAt));
  }
 
- module.exports = {addTasks,updateTasks,listTasks}
+ const deleteTask = async (taskId) => {
+    try{
+        const inquirer = await import("inquirer");
+
+        const confirmTask = await inquirer.default.prompt([
+            {
+                type: "confirm",
+                name: "confirm",
+                message: `Are you sure you want to delete task with ID ${taskId} : `,
+                default:false
+            }
+        ]);
+
+        if(!confirmTask){
+            console.log(chalk.green("Task deletion got cancelled!"));
+            return;
+        }
+
+        let query = {
+            text: "DELETE FROM tasks WHERE id = $1 RETURNING *",
+            values: [taskId]
+        };
+
+        const res = await pool.query(query);
+
+        if(res.rows.length === 0){
+            console.log(chalk.red(`No task found with ID ${taskId}`))
+            return;
+        }
+
+        console.log(chalk.blue("Task deleted Successfully!"));
+    }
+    catch(err){
+        console.log(chalk.red("Error deleting Task:",err))
+    }
+ }
+
+ module.exports = {addTasks,updateTasks,listTasks,deleteTask}

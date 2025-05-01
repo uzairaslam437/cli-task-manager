@@ -3,7 +3,7 @@
 const {program} = require("commander");
 const {initDb} = require("./db.js")
 const chalk = require("chalk");
-const {addTasks,updateTasks,listTasks} = require("./commands.js");
+const {addTasks,updateTasks,listTasks,deleteTask} = require("./commands.js");
 
 const init = async () => {
     try{
@@ -30,6 +30,11 @@ const init = async () => {
         .option("-s , --status <statuss>","Fliter task by status (pending,in-progress,completed)")
         .option("-d , --due_date <dueDate>","Filter task by due date (YYYY-MM-DD")
         .action(listTasks)
+
+        program
+        .command("delete <id>")
+        .description("Delete a task")
+        .action(deleteTask)
 
         program.parse(process.argv)
 
