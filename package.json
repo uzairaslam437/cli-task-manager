@@ -1,0 +1,27 @@
+{
+  "name": "cli-task-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "bin": {
+    "taskman": "./src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^13.1.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
+    "inquirer": "^12.6.0",
+    "pg": "^8.15.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
